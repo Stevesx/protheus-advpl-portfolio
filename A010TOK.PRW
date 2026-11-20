@@ -43,22 +43,7 @@
 +-------------------------------------------+-----------+-----------+--------+
 | Cria��o do cabe�alho do fonte             |           |Rafael Galo|24/01/19|
 +-------------------------------------------+-----------+-----------+--------+
-| Envio de email quando for alterado campos |           |Rafael Galo|24/01/19|
-| principais do cadastro.				    |           |			|        |
-+-------------------------------------------+-----------+-----------+--------+
-| Na inclusao perguntar se esta substituindo|			|Rafael Galo|25/01/19|
-| algum produto. Se sim pedir para preencher|			|			|		 |
-| campo codigo Anterior						| 			|			|		 |
-+-------------------------------------------+-----------+-----------+--------+
-| Tratativa para Exectar somente na CHUA    |           |Rafael Galo|12/02/19|
-+-------------------------------------------+-----------+-----------+--------+
-| Campo B1_PRCV1, preco de venda obrigatorio|           |Rafael Galo|29/03/19|
-| para tipo = ME							|			|			|		 |
-+-------------------------------------------+-----------+-----------+--------+
-| Acrescetnado campos B1_TS01, B1_TS02,     |           |Rafael Galo|29/03/19|
-| B1_TS03 para enviar WF quando alterado    |           |           |        |
-| Acrescentado email do fiscal.             |           |           |        |
-+-------------------------------------------+-----------+-----------+--------+
+
 +-------------------------------------------+-----------+-----------+--------+
 | Justificativa Desativao/Bloqueio -        |           |Gabriel	|31/08/2026| 
 |                                           |           |           |

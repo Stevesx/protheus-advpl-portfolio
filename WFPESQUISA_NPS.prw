@@ -4,7 +4,7 @@
 
 #DEFINE CLOGPATH 	"\logs\"
 #DEFINE EMAILTO		"gestao.ti@chuasa.com,ti@chuasa.com,gestao.marketing@chuasa.com"
-#DEFINE CTIPOMSG 	"Pesquisa Satisfação - Clientes"
+#DEFINE CTIPOMSG 	"Pesquisa Satisfaï¿½ï¿½o - Clientes"
 #DEFINE CROTINA  	"MJOB011"
 #DEFINE CDESCRICAO = "JOB para envio de Pesquisa de Satisfacao para clientes via Whatsapp"
 #DEFINE NMESESCPR 6
@@ -17,7 +17,7 @@
 +------------------+---------------------------------------------------------+
 |Tipo              | JOB                                                     |
 +------------------+---------------------------------------------------------+
-|Nome da Função    | WFPESQUI  - MJOB011                      		 		 |
+|Nome da Funï¿½ï¿½o    | WFPESQUI  - MJOB011                      		 		 |
 +------------------+---------------------------------------------------------+
 |Descricao         | 														 |
 +------------------+---------------------------------------------------------+
@@ -36,10 +36,7 @@
 |   Descricao detalhada da atualizacao      |Nome do    | Analista  |Data da |
 |                                           |Solicitante| Respons.  |Atualiz.|
 +-------------------------------------------+-----------+-----------+--------+
-+-------------------------------------------+-----------+-----------+--------+
-|Nova Pesquisa Satisfação - Projeto         |Fabricio   |Rafael Galo|13/03/25|
-+-------------------------------------------+-----------+-----------+--------+
-*/
+
 
 User Function WFPESFRMNPS()
 	//+----------------------------------------------------+
@@ -54,7 +51,7 @@ User Function WFPESFRMNPS()
 	ErrorBlock( {|e| ChecErro(e)})
 
 	//+----------------------------------------------------+
-	//| Tratamento de Exceção							   |
+	//| Tratamento de Exceï¿½ï¿½o							   |
 	//+----------------------------------------------------+
 	BEGIN SEQUENCE
 
@@ -70,7 +67,7 @@ User Function WFPESFRMNPS()
 			//| Testa se esta sendo rodado do menu	  			   |
 			//+----------------------------------------------------+
 			If	Select('SX2') == 0
-				RPCSetType( 3 )//Não consome licensa de uso
+				RPCSetType( 3 )//Nï¿½o consome licensa de uso
 				RpcSetEnv('01',aFiliais[nI],,,,GetEnvServer(),{ "SD2","SA1","SC5" })
 				ConOut('Pesquisa Clientes... '+Dtoc(DATE())+' - '+Time())
 				lAuto := .T.
@@ -114,11 +111,11 @@ Static Function execWF(cFil)
 
 	//+----------------------------------------------------+
 //| Email											   |	
-//| Cabeçalho da Mensagem							   |	
+//| Cabeï¿½alho da Mensagem							   |	
 //+----------------------------------------------------+
 
 	//+----------------------------------------------------+
-	//| Email - Cabeçalho da Mensagem                      |
+	//| Email - Cabeï¿½alho da Mensagem                      |
 	//+----------------------------------------------------+
 	cCabeMsg := '<!DOCTYPE html>' + CRLF
 	cCabeMsg += '<html lang="pt-BR">' + CRLF
@@ -126,7 +123,7 @@ Static Function execWF(cFil)
 	cCabeMsg += '<meta charset="windows-1252">' + CRLF
 	cCabeMsg += '<meta name="viewport" content="width=device-width, initial-scale=1.0">' + CRLF
 	cCabeMsg += '<meta name="color-scheme" content="light">' + CRLF
-	cCabeMsg += '<title>Chuá Distribuidora | Pesquisa de Satisfação</title>' + CRLF
+	cCabeMsg += '<title>Chuï¿½ Distribuidora | Pesquisa de Satisfaï¿½ï¿½o</title>' + CRLF
 	cCabeMsg += '<style>' + CRLF
 	cCabeMsg += '@media only screen and (max-width: 620px) {' + CRLF
 	cCabeMsg += '.container { width: 100% !important; }' + CRLF
@@ -138,8 +135,8 @@ Static Function execWF(cFil)
 	cCabeMsg += '</head>' + CRLF
 	cCabeMsg += '<body style="margin:0; padding:0; background-color:#EEEDEB;">' + CRLF
 
-	// Texto de pré-visualização (ao lado do assunto na caixa de entrada)
-	cCabeMsg += '<div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">Leva menos de 1 minuto. Sua resposta chega direto à nossa equipe.</div>' + CRLF
+	// Texto de prï¿½-visualizaï¿½ï¿½o (ao lado do assunto na caixa de entrada)
+	cCabeMsg += '<div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">Leva menos de 1 minuto. Sua resposta chega direto ï¿½ nossa equipe.</div>' + CRLF
 
 	// Estrutura externa
 	cCabeMsg += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EEEDEB;">' + CRLF
@@ -149,23 +146,23 @@ Static Function execWF(cFil)
 	// Faixa laranja
 	cCabeMsg += '<tr><td style="height:6px; background-color:#F26522; font-size:0; line-height:0;">&nbsp;</td></tr>' + CRLF
 
-	// Cabeçalho
+	// Cabeï¿½alho
 	cCabeMsg += '<tr><td class="px" style="padding:28px 40px 0 40px;">' + CRLF
-	cCabeMsg += '<span style="' + cFont + ' font-size:26px; font-weight:bold; letter-spacing:1px; color:#6D6E71;">CHUÁ</span>' + CRLF
-	cCabeMsg += '<span style="' + cFont + ' font-size:12px; color:#9A9B9E; padding-left:6px;">Além da distribuição</span>' + CRLF
+	cCabeMsg += '<span style="' + cFont + ' font-size:26px; font-weight:bold; letter-spacing:1px; color:#6D6E71;">CHUï¿½</span>' + CRLF
+	cCabeMsg += '<span style="' + cFont + ' font-size:12px; color:#9A9B9E; padding-left:6px;">Alï¿½m da distribuiï¿½ï¿½o</span>' + CRLF
 	cCabeMsg += '</td></tr>' + CRLF
 
 	// Abertura
 	cCabeMsg += '<tr><td class="px" style="padding:30px 40px 0 40px; ' + cFont + '">' + CRLF
-	cCabeMsg += '<p style="margin:0 0 10px 0; font-size:16px; color:#6D6E71;">Olá!</p>' + CRLF
-	cCabeMsg += '<h1 class="h1" style="margin:0; font-size:34px; line-height:40px; font-weight:bold; color:#2E2F31;">Como tem sido comprar com a Chuá?</h1>' + CRLF
-	cCabeMsg += '<p style="margin:16px 0 0 0; font-size:16px; line-height:25px; color:#4A4B4E;">Queremos ouvir você para melhorar o que realmente faz diferença no seu negócio. São poucas perguntas e leva menos de 1 minuto.</p>' + CRLF
+	cCabeMsg += '<p style="margin:0 0 10px 0; font-size:16px; color:#6D6E71;">Olï¿½!</p>' + CRLF
+	cCabeMsg += '<h1 class="h1" style="margin:0; font-size:34px; line-height:40px; font-weight:bold; color:#2E2F31;">Como tem sido comprar com a Chuï¿½?</h1>' + CRLF
+	cCabeMsg += '<p style="margin:16px 0 0 0; font-size:16px; line-height:25px; color:#4A4B4E;">Queremos ouvir vocï¿½ para melhorar o que realmente faz diferenï¿½a no seu negï¿½cio. Sï¿½o poucas perguntas e leva menos de 1 minuto.</p>' + CRLF
 	cCabeMsg += '</td></tr>' + CRLF
 
-	// Escala NPS clicável
+	// Escala NPS clicï¿½vel
 	cCabeMsg += '<tr><td class="px" style="padding:30px 40px 0 40px;">' + CRLF
 	cCabeMsg += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF4EC; border-radius:6px;">' + CRLF
-	cCabeMsg += '<tr><td style="padding:22px 18px 8px 18px; ' + cFont + ' font-size:15px; line-height:22px; color:#2E2F31; font-weight:bold;">De 0 a 10, quanto você recomendaria a Chuá para outros varejistas?</td></tr>' + CRLF
+	cCabeMsg += '<tr><td style="padding:22px 18px 8px 18px; ' + cFont + ' font-size:15px; line-height:22px; color:#2E2F31; font-weight:bold;">De 0 a 10, quanto vocï¿½ recomendaria a Chuï¿½ para outros varejistas?</td></tr>' + CRLF
 	cCabeMsg += '<tr><td style="padding:8px 14px 0 14px;">' + CRLF
 	cCabeMsg += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' + CRLF
 
@@ -179,14 +176,14 @@ Static Function execWF(cFil)
 	cCabeMsg += '</td></tr>' + CRLF
 	cCabeMsg += '<tr><td style="padding:8px 18px 20px 18px;">' + CRLF
 	cCabeMsg += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' + CRLF
-	cCabeMsg += '<td align="left" style="' + cFont + ' font-size:12px; color:#8A8B8E;">Nada provável</td>' + CRLF
-	cCabeMsg += '<td align="right" style="' + cFont + ' font-size:12px; color:#8A8B8E;">Muito provável</td>' + CRLF
+	cCabeMsg += '<td align="left" style="' + cFont + ' font-size:12px; color:#8A8B8E;">Nada provï¿½vel</td>' + CRLF
+	cCabeMsg += '<td align="right" style="' + cFont + ' font-size:12px; color:#8A8B8E;">Muito provï¿½vel</td>' + CRLF
 	cCabeMsg += '</tr></table>' + CRLF
 	cCabeMsg += '</td></tr>' + CRLF
 	cCabeMsg += '</table>' + CRLF
 	cCabeMsg += '</td></tr>' + CRLF
 
-	// Botão principal
+	// Botï¿½o principal
 	cCabeMsg += '<tr><td class="px" align="center" style="padding:28px 40px 0 40px;">' + CRLF
 	cCabeMsg += '<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>' + CRLF
 	cCabeMsg += '<td align="center" style="background-color:#F26522; border-radius:28px;">' + CRLF
@@ -199,11 +196,11 @@ Static Function execWF(cFil)
 	cCabeMsg += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #E6E5E2;">' + CRLF
 	cCabeMsg += '<tr><td style="padding:24px 0 0 0; ' + cFont + '">' + CRLF
 	cCabeMsg += '<p style="margin:0 0 8px 0; font-size:15px; font-weight:bold; color:#2E2F31;">O que fazemos com a sua resposta</p>' + CRLF
-	cCabeMsg += '<p style="margin:0; font-size:15px; line-height:24px; color:#4A4B4E;">Cada resposta é lida pela nossa equipe de Qualidade, que analisa os pontos levantados e trabalha para resolver os problemas apontados.</p>' + CRLF
+	cCabeMsg += '<p style="margin:0; font-size:15px; line-height:24px; color:#4A4B4E;">Cada resposta ï¿½ lida pela nossa equipe de Qualidade, que analisa os pontos levantados e trabalha para resolver os problemas apontados.</p>' + CRLF
 	cCabeMsg += '</td></tr>' + CRLF
 	cCabeMsg += '<tr><td style="padding:22px 0 0 0; ' + cFont + '">' + CRLF
 	cCabeMsg += '<p style="margin:0 0 8px 0; font-size:15px; font-weight:bold; color:#2E2F31;">Precisa falar com a gente?</p>' + CRLF
-	cCabeMsg += '<p style="margin:0 0 14px 0; font-size:15px; line-height:24px; color:#4A4B4E;">Se quiser tratar algum problema diretamente, fale com o SAC Chuá pelo WhatsApp (33) 99876-8088 ou pelo telefone fixo (33) 3225-3126, das 8h às 11h30 e das 13h às 18h. Esse contato também está disponível no nosso site.</p>' + CRLF
+	cCabeMsg += '<p style="margin:0 0 14px 0; font-size:15px; line-height:24px; color:#4A4B4E;">Se quiser tratar algum problema diretamente, fale com o SAC Chuï¿½ pelo WhatsApp (33) 99876-8088 ou pelo telefone fixo (33) 3225-3126, das 8h ï¿½s 11h30 e das 13h ï¿½s 18h. Esse contato tambï¿½m estï¿½ disponï¿½vel no nosso site.</p>' + CRLF
 	cCabeMsg += '<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>' + CRLF
 	cCabeMsg += '<td align="center" style="border:1px solid #F26522; border-radius:24px;">' + CRLF
 	cCabeMsg += '<a href="https://wa.me/5533998768088" style="display:inline-block; padding:10px 24px; ' + cFont + ' font-size:14px; font-weight:bold; color:#F26522; text-decoration:none;">Falar com o SAC no WhatsApp</a>' + CRLF
@@ -213,20 +210,20 @@ Static Function execWF(cFil)
 	cCabeMsg += '</td></tr>' + CRLF
 
 	//+----------------------------------------------------+
-	//| Finalização da mensagem                            |
+	//| Finalizaï¿½ï¿½o da mensagem                            |
 	//+----------------------------------------------------+
 	// Assinatura
 	cFimMsg := '<tr><td class="px" style="padding:28px 40px 36px 40px; ' + cFont + '">' + CRLF
-	cFimMsg += '<p style="margin:0; font-size:15px; line-height:24px; color:#4A4B4E;">Obrigado pela parceria e por confiar na Chuá!</p>' + CRLF
-	cFimMsg += '<p style="margin:6px 0 0 0; font-size:15px; font-weight:bold; color:#F26522;">#SomosUmaSóChuá</p>' + CRLF
+	cFimMsg += '<p style="margin:0; font-size:15px; line-height:24px; color:#4A4B4E;">Obrigado pela parceria e por confiar na Chuï¿½!</p>' + CRLF
+	cFimMsg += '<p style="margin:6px 0 0 0; font-size:15px; font-weight:bold; color:#F26522;">#SomosUmaSï¿½Chuï¿½</p>' + CRLF
 	cFimMsg += '</td></tr>' + CRLF
 
-	// Rodapé
+	// Rodapï¿½
 	cFimMsg += '<tr><td class="px" style="padding:22px 40px; background-color:#6D6E71; ' + cFont + ' font-size:12px; line-height:19px; color:#E9E9EA;">' + CRLF
-	cFimMsg += '<strong style="color:#FFFFFF;">Chuá Distribuidora</strong><br>' + CRLF
-	cFimMsg += 'R. Professor José de Carvalho, 384 - Universitário - Governador Valadares - MG<br>' + CRLF
+	cFimMsg += '<strong style="color:#FFFFFF;">Chuï¿½ Distribuidora</strong><br>' + CRLF
+	cFimMsg += 'R. Professor Josï¿½ de Carvalho, 384 - Universitï¿½rio - Governador Valadares - MG<br>' + CRLF
 	cFimMsg += '<a href="https://chuadistribuidora.com.br" style="color:#FFFFFF; text-decoration:underline;">chuadistribuidora.com.br</a><br><br>' + CRLF
-	cFimMsg += 'Você recebeu este e-mail por ser cliente da Chuá Distribuidora. Suas respostas são usadas exclusivamente para a melhoria dos nossos serviços.' + CRLF
+	cFimMsg += 'Vocï¿½ recebeu este e-mail por ser cliente da Chuï¿½ Distribuidora. Suas respostas sï¿½o usadas exclusivamente para a melhoria dos nossos serviï¿½os.' + CRLF
 	cFimMsg += '</td></tr>' + CRLF
 
 	// Fecha estrutura
@@ -238,7 +235,7 @@ Static Function execWF(cFil)
 
 	_cMsg := cCabeMsg + cFimMsg
 
-	// Grava uma cópia para conferir o layout no navegador
+	// Grava uma cï¿½pia para conferir o layout no navegador
 	MemoWrite(CLOGPATH + 'WF_PESQUISA_EMAIL.html', _cMsg)
 
 	//+---------------------------------------------------+
@@ -259,15 +256,15 @@ Static Function execWF(cFil)
 			// Tratativa para nao enviar para o mesmo email
 			// Se vazio eh o primeiro Envio
 			// Envia uma vez por e-mail (query ordenada por EMAIL).
-			// == é comparação exata; != no AdvPL compara só até o tamanho do operando da direita.
+			// == ï¿½ comparaï¿½ï¿½o exata; != no AdvPL compara sï¿½ atï¿½ o tamanho do operando da direita.
 			If Empty(cMailAnt) .Or. !(cMailAnt == cEmail)
 
-				// PRODUÇÃO: descomente a linha abaixo e comente a linha de TESTE
+				// PRODUï¿½ï¿½O: descomente a linha abaixo e comente a linha de TESTE
 				//lRet := u_EnvMail1(cEmail,;									//_cPara
 				lRet := u_EnvMail1("ti@chuasa.com",;							//_cPara TESTE
 				,;																//_cCc
 				"ti@chuasa.com",;												//_cBCC
-				"Como tem sido comprar com a Chuá? - " + AllTrim(cNome) ,;		//Assunto
+				"Como tem sido comprar com a Chuï¿½? - " + AllTrim(cNome) ,;		//Assunto
 				,;																//_aAnexo
 				_cMsg,;															//_cMsg
 				.T.)
@@ -319,7 +316,7 @@ Static Function execWF(cFil)
 			u_EnvMail1(EMAILTO,;									//_cPara
 			,;														//_cCc
 			"ti@chuasa.com",;										//_cBCC
-			"WorkFlow - Pesquisa de Satisfação -  ENVIADOS NO DIA" ,;
+			"WorkFlow - Pesquisa de Satisfaï¿½ï¿½o -  ENVIADOS NO DIA" ,;
 				,;														//_aAnexo
 			cMsgEnv,;												//_cMsg
 			.T.)
@@ -335,8 +332,8 @@ Return ( Nil )
 Static Function Qry()
 	Local cQuery  := ""
 	Local nCnt    := 0
-	Local cDtIni  := DToS(MonthSub(Date(), NMESESCPR))           // AAAAMMDD de 6 meses atrás
-	Local cAssunt := PadR(CASSUNTO, TamSX3("Z06_ASSUNT")[1])      // completa até o tamanho do campo
+	Local cDtIni  := DToS(MonthSub(Date(), NMESESCPR))           // AAAAMMDD de 6 meses atrï¿½s
+	Local cAssunt := PadR(CASSUNTO, TamSX3("Z06_ASSUNT")[1])      // completa atï¿½ o tamanho do campo
 
 	If Select("QRY") <> 0
 		DbSelectArea("QRY")
@@ -363,7 +360,7 @@ Static Function Qry()
 	cQuery += "                     WHERE Z06.Z06_CLIENT = SA1.A1_COD " + CRLF
 	cQuery += "                       AND Z06.Z06_ASSUNT = '" + cAssunt + "' " + CRLF
 	cQuery += "                       AND Z06.D_E_L_E_T_ = ' ' ) " + CRLF
-	// Sem e-mail não há o que enviar
+	// Sem e-mail nï¿½o hï¿½ o que enviar
 	cQuery += "    AND NVL(TRIM(JSON_VALUE(IR.RESPONSE_DATA, '$.researchResponses.EMAIL')), ' ') <> ' ' " + CRLF
 	cQuery += "  ORDER BY EMAIL, SA1.A1_COD, SA1.A1_LOJA "
 

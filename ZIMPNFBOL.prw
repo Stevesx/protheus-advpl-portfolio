@@ -6,18 +6,18 @@
 #Include "TopConn.ch"
 
 /*/{Protheus.doc} ZIMPNFBOL
-Pede a filial e o número da Nota Fiscal de Saída e gera, em C:\Dev, o PDF da
-DANFE com o boleto anexado (quando aplicável), reaproveitando o motor nativo
-de impressão de DANFE (NFE_2025/20251215/danfeii.prw -> U_DANFEProc), que por
-sua vez já aciona a impressão do boleto (RFINR03/RFINR04/BRADESCO) quando
-MV_PAR21 = 2 e a empresa é a CHUA.
+Pede a filial e o nï¿½mero da Nota Fiscal de Saï¿½da e gera, em C:\Dev, o PDF da
+DANFE com o boleto anexado (quando aplicï¿½vel), reaproveitando o motor nativo
+de impressï¿½o de DANFE (NFE_2025/20251215/danfeii.prw -> U_DANFEProc), que por
+sua vez jï¿½ aciona a impressï¿½o do boleto (RFINR03/RFINR04/BRADESCO) quando
+MV_PAR21 = 2 e a empresa ï¿½ a CHUA.
 
-Restrição: a filial informada precisa ser aquela em que o usuário está
+Restriï¿½ï¿½o: a filial informada precisa ser aquela em que o usuï¿½rio estï¿½
 logado (cFilAnt), pois o motor nativo de DANFE sempre filtra pela filial da
-sessão atual (xFilial()), não havendo como gerar de outra filial sem trocar
+sessï¿½o atual (xFilial()), nï¿½o havendo como gerar de outra filial sem trocar
 de ambiente.
 
-@author Equipe de Desenvolvimento
+@Gabriel Esteves
 @since 18/08/2026
 @version 1.0
 @type function
@@ -34,7 +34,7 @@ User Function ZIMPNFBOL()
 		@ 012, 010 SAY "Filial:"           SIZE 060, 010 OF oDlg PIXEL
 		@ 010, 080 GET  oGetFilial VAR cFilialDig SIZE 060, 012 OF oDlg PIXEL
 
-		@ 032, 010 SAY "Número da Nota:"   SIZE 060, 010 OF oDlg PIXEL
+		@ 032, 010 SAY "Nï¿½mero da Nota:"   SIZE 060, 010 OF oDlg PIXEL
 		@ 030, 080 GET  oGetNumero VAR cNumNota PICTURE "@!" SIZE 080, 012 OF oDlg PIXEL
 
 		@ 060, 070 BUTTON "OK"       SIZE 050, 015 ACTION (lConfirma := .T., oDlg:End()) OF oDlg PIXEL
@@ -50,14 +50,14 @@ User Function ZIMPNFBOL()
 	cNumNota   := AllTrim(cNumNota)
 
 	If Empty(cNumNota)
-		MsgStop("Informe o número da nota.", "Atenção")
+		MsgStop("Informe o nï¿½mero da nota.", "Atenï¿½ï¿½o")
 		Return Nil
 	EndIf
 
 	If cFilialDig <> AllTrim(cFilAnt)
-		MsgStop("Você está logado na filial " + AllTrim(cFilAnt) + "." + CRLF + ;
+		MsgStop("Vocï¿½ estï¿½ logado na filial " + AllTrim(cFilAnt) + "." + CRLF + ;
 			"Para gerar o PDF da filial " + cFilialDig + ", troque de filial no Protheus e execute a rotina novamente.", ;
-			"Filial inválida")
+			"Filial invï¿½lida")
 		Return Nil
 	EndIf
 
@@ -67,9 +67,9 @@ Return Nil
 
 /*-------------------------------------------------------------------------------*
  | Func:  fGerarPdf                                                              |
- | Desc:  Resolve a série da nota na SF3 (tabela de controle usada pelo motor    |
- |        de DANFE), monta o objeto de impressão em PDF e chama U_DANFEProc,     |
- |        que desenha a nota e, quando aplicável, anexa o boleto no mesmo PDF.   |
+ | Desc:  Resolve a sï¿½rie da nota na SF3 (tabela de controle usada pelo motor    |
+ |        de DANFE), monta o objeto de impressï¿½o em PDF e chama U_DANFEProc,     |
+ |        que desenha a nota e, quando aplicï¿½vel, anexa o boleto no mesmo PDF.   |
  *-------------------------------------------------------------------------------*/
 Static Function fGerarPdf(cNumNota)
 	Local aArea      := GetArea()
@@ -114,8 +114,8 @@ Static Function fGerarPdf(cNumNota)
 	While ! (cAliasQry)->(Eof())
 		If Empty((cAliasQry)->F3_DTCANC) .And. AScan(aSeries, AllTrim((cAliasQry)->F3_SERIE)) == 0
 			AAdd(aSeries, AllTrim((cAliasQry)->F3_SERIE))
-			// Mantidos sem AllTrim - usados apenas no diagnóstico SPED (fDiagSped),
-			// que precisa reproduzir a mesma chave (Série+Número) usada internamente
+			// Mantidos sem AllTrim - usados apenas no diagnï¿½stico SPED (fDiagSped),
+			// que precisa reproduzir a mesma chave (Sï¿½rie+Nï¿½mero) usada internamente
 			// por U_DANFEProc, no formato exato gravado na SF3 (com padding).
 			AAdd(aSeriesRaw, (cAliasQry)->F3_SERIE)
 			cNumNotaRaw := (cAliasQry)->F3_NFISCAL
@@ -125,15 +125,15 @@ Static Function fGerarPdf(cNumNota)
 	(cAliasQry)->(DbCloseArea())
 
 	If Len(aSeries) == 0
-		MsgStop("Nenhuma nota fiscal de saída autorizada encontrada com o número " + cNumNota + ;
-			" na filial " + AllTrim(cFilAnt) + ".", "Nota não encontrada")
+		MsgStop("Nenhuma nota fiscal de saï¿½da autorizada encontrada com o nï¿½mero " + cNumNota + ;
+			" na filial " + AllTrim(cFilAnt) + ".", "Nota nï¿½o encontrada")
 		RestArea(aArea)
 		Return Nil
 	ElseIf Len(aSeries) == 1
 		nIdxSel := 1
 		cSerie := aSeries[nIdxSel]
 	Else
-		// Mais de uma série encontrada para o mesmo número: o usuário escolhe qual gerar
+		// Mais de uma sï¿½rie encontrada para o mesmo nï¿½mero: o usuï¿½rio escolhe qual gerar
 		nOpc := Achoice(008, 005, 018, 060, aSeries)
 		If nOpc == 0
 			RestArea(aArea)
@@ -161,33 +161,33 @@ Static Function fGerarPdf(cNumNota)
 	oDanfe:nDevice   := IMP_PDF
 	oDanfe:cPathPDF  := cPasta
 
-	// Apenas leitura do borderô atual - NÃO avança o contador (MV_EANUBOR),
-	// pois esta impressão é só uma via avulsa da nota + boleto e não faz
-	// parte do fluxo oficial de geração de borderô.
+	// Apenas leitura do borderï¿½ atual - Nï¿½O avanï¿½a o contador (MV_EANUBOR),
+	// pois esta impressï¿½o ï¿½ sï¿½ uma via avulsa da nota + boleto e nï¿½o faz
+	// parte do fluxo oficial de geraï¿½ï¿½o de borderï¿½.
 	cNumBor := GetMV("MV_EANUBOR")
 
 	// Mesma chamada que U_PrtNfeSef faz antes de montar os MV_PAR* - garante
-	// que qualquer estado adicional exigido pelo motor de DANFE (além dos
+	// que qualquer estado adicional exigido pelo motor de DANFE (alï¿½m dos
 	// MV_PAR* que sobrescrevemos abaixo) fique inicializado como no fluxo nativo.
 	Pergunte("NFSIGW", .F.)
 
 	MV_PAR01 := cNumNota   // Nota inicial
 	MV_PAR02 := cNumNota   // Nota final
-	// Série: PadR para o tamanho cheio do campo F3_SERIE. O motor de DANFE compara
+	// Sï¿½rie: PadR para o tamanho cheio do campo F3_SERIE. O motor de DANFE compara
 	// internamente "SF3.F3_SERIE = ?" via bind (VARCHAR2). No Oracle, bind VARCHAR2
-	// contra coluna CHAR usa comparação SEM blank-padding, então uma série truncada
-	// (ex.: "1") nunca bate com o valor gravado ("1  "), e a nota não é encontrada.
+	// contra coluna CHAR usa comparaï¿½ï¿½o SEM blank-padding, entï¿½o uma sï¿½rie truncada
+	// (ex.: "1") nunca bate com o valor gravado ("1  "), e a nota nï¿½o ï¿½ encontrada.
 	MV_PAR03 := PadR(cSerie, TamSX3("F3_SERIE")[1])
-	MV_PAR04 := 2          // Operação: NF de Saída
+	MV_PAR04 := 2          // Operaï¿½ï¿½o: NF de Saï¿½da
 	MV_PAR05 := 1          // Frente e verso
-	MV_PAR06 := 2          // DANFE simplificado: Não
-	MV_PAR07 := CToD("")   // Data de emissão inicial (sem filtro)
-	MV_PAR08 := CToD("")   // Data de emissão final (sem filtro)
-	MV_PAR21 := 2          // Aciona a impressão do boleto junto com a DANFE
+	MV_PAR06 := 2          // DANFE simplificado: Nï¿½o
+	MV_PAR07 := CToD("")   // Data de emissï¿½o inicial (sem filtro)
+	MV_PAR08 := CToD("")   // Data de emissï¿½o final (sem filtro)
+	MV_PAR21 := 2          // Aciona a impressï¿½o do boleto junto com a DANFE
 
-	// ID da entidade SPED da empresa/filial atualmente logada. RetIdEnti() é
-	// a função padrão do módulo SPED-NFe para obter esse ID (a mesma usada por
-	// U_PrtNfeSef quando chamado a partir da tela padrão de impressão).
+	// ID da entidade SPED da empresa/filial atualmente logada. RetIdEnti() ï¿½
+	// a funï¿½ï¿½o padrï¿½o do mï¿½dulo SPED-NFe para obter esse ID (a mesma usada por
+	// U_PrtNfeSef quando chamado a partir da tela padrï¿½o de impressï¿½o).
 	cIdEnt := RetIdEnti()
 
 	U_DANFEProc(@oDanfe, .F., cIdEnt, cNumNota, cNumNota, @lExistNfe, .F., 0, @cNfceMens)
@@ -196,28 +196,28 @@ Static Function fGerarPdf(cNumNota)
 		oDanfe:Preview() // Com nDevice = IMP_PDF, grava o arquivo em cPathPDF
 		MsgInfo("PDF gerado com sucesso em:" + CRLF + cPasta + cNomeArq + ".pdf", "Sucesso")
 	Else
-		cMsgErro := "Não foi possível gerar o PDF. Verifique se a nota " + cNumNota + "/" + cSerie + ;
-			" está autorizada e possui XML disponível no SPED."
+		cMsgErro := "Nï¿½o foi possï¿½vel gerar o PDF. Verifique se a nota " + cNumNota + "/" + cSerie + ;
+			" estï¿½ autorizada e possui XML disponï¿½vel no SPED."
 
 		If GetNewPar("MV_IMPDIR", .F.)
 			cMsgErro += CRLF + CRLF + ;
-				"Diagnóstico: o parâmetro MV_IMPDIR está ativo (.T.) neste ambiente. " + ;
+				"Diagnï¿½stico: o parï¿½metro MV_IMPDIR estï¿½ ativo (.T.) neste ambiente. " + ;
 				"Com ele ativo, a rotina nativa de DANFE (DANFEProc) pula por completo " + ;
-				"o trecho que localiza a nota e, por isso, nada é encontrado, mesmo com a " + ;
-				"nota autorizada. Provavelmente essa é a causa; vale conferir " + ;
-				"esse parâmetro com a equipe de configuração."
+				"o trecho que localiza a nota e, por isso, nada ï¿½ encontrado, mesmo com a " + ;
+				"nota autorizada. Provavelmente essa ï¿½ a causa; vale conferir " + ;
+				"esse parï¿½metro com a equipe de configuraï¿½ï¿½o."
 		EndIf
 
 		If Empty(cIdEnt)
 			cMsgErro += CRLF + CRLF + ;
-				"Diagnóstico: RetIdEnti() retornou vazio - a empresa/filial atual pode " + ;
-				"não ter uma entidade SPED cadastrada/ativa."
+				"Diagnï¿½stico: RetIdEnti() retornou vazio - a empresa/filial atual pode " + ;
+				"nï¿½o ter uma entidade SPED cadastrada/ativa."
 		EndIf
 
-		cMsgErro += CRLF + CRLF + "--- Diagnóstico SPED (temporário) ---" + CRLF + ;
+		cMsgErro += CRLF + CRLF + "--- Diagnï¿½stico SPED (temporï¿½rio) ---" + CRLF + ;
 			fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
 
-		MsgStop(cMsgErro, "Falha na geração")
+		MsgStop(cMsgErro, "Falha na geraï¿½ï¿½o")
 	EndIf
 
 	FreeObj(oDanfe)
@@ -228,11 +228,11 @@ Return Nil
 
 /*-------------------------------------------------------------------------------*
  | Func:  fDiagSped                                                              |
- | Desc:  DIAGNÓSTICO TEMPORÁRIO - reproduz isoladamente a mesma consulta que    |
+ | Desc:  DIAGNï¿½STICO TEMPORï¿½RIO - reproduz isoladamente a mesma consulta que    |
  |        U_DANFEProc faz ao web service do SPED (NFeSBRA/RETORNANOTASNX) para a |
- |        nota informada e retorna o resultado bruto (achou ou não achou         |
+ |        nota informada e retorna o resultado bruto (achou ou nï¿½o achou         |
  |        registro, protocolo, tamanho do XML). Serve apenas para confirmar se   |
- |        o cIdEnt (RetIdEnti()) usado por esta rotina é o mesmo que o fluxo     |
+ |        o cIdEnt (RetIdEnti()) usado por esta rotina ï¿½ o mesmo que o fluxo     |
  |        convencional usa. Remover depois que a causa raiz for confirmada.      |
  *-------------------------------------------------------------------------------*/
 Static Function fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
@@ -255,7 +255,7 @@ Static Function fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
 	Local oXmlDpec
 
 	cDiag += "cID_ENT usado: [" + AllTrim(cIdEnt) + "]" + CRLF
-	cDiag += "Chave enviada (Série+NFiscal): [" + cChave + "]" + CRLF
+	cDiag += "Chave enviada (Sï¿½rie+NFiscal): [" + cChave + "]" + CRLF
 	cDiag += "URL: " + AllTrim(cURL) + "/NFeSBRA.apw" + CRLF
 
 	Begin Sequence
@@ -282,10 +282,10 @@ Static Function fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
 			cDiag += "Tamanho XML NFe: " + AllTrim(Str(Len(cRetorno))) + " caracteres" + CRLF
 			cDiag += "Tamanho XML DPEC: " + AllTrim(Str(Len(cRetDPEC))) + " caracteres" + CRLF
 
-			// cStat do protocolo de autorização - mesma extração que executeRetorna faz.
-			// ValAtrib() não está disponível fora do danfeii.prw (função privada do módulo
-			// SPED), então o acesso ao XML é feito com Begin Sequence para não travar caso
-			// algum nó não exista.
+			// cStat do protocolo de autorizaï¿½ï¿½o - mesma extraï¿½ï¿½o que executeRetorna faz.
+			// ValAtrib() nï¿½o estï¿½ disponï¿½vel fora do danfeii.prw (funï¿½ï¿½o privada do mï¿½dulo
+			// SPED), entï¿½o o acesso ao XML ï¿½ feito com Begin Sequence para nï¿½o travar caso
+			// algum nï¿½ nï¿½o exista.
 			oXmlProt := XmlParser(cDHRecbto, "", "", "")
 			cCodStat := ""
 			Begin Sequence
@@ -315,13 +315,13 @@ Static Function fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
 						cCodRetNFE := aWsErro[Len(aWsErro)]:CCODRETNFE
 						cMsgNFE    := aWsErro[Len(aWsErro)]:CMSGRETNFE
 						cDiag += "-> NENHUM item da fila bate com o cStat desta nota; a rotina nativa usaria " + ;
-							"o ÚLTIMO item da fila (pode ser de OUTRA nota/lote): CCODRETNFE=[" + AllTrim(cCodRetNFE) + ;
+							"o ï¿½LTIMO item da fila (pode ser de OUTRA nota/lote): CCODRETNFE=[" + AllTrim(cCodRetNFE) + ;
 							"] Msg=[" + AllTrim(cMsgNFE) + "]" + CRLF
 					Else
 						cDiag += "-> Fila de retorno (OWSLOTENFE) veio vazia." + CRLF
 					EndIf
 				Else
-					cDiag += "cStat vazio - a rotina nativa pularia a comparação do MONITORFAIXA também." + CRLF
+					cDiag += "cStat vazio - a rotina nativa pularia a comparaï¿½ï¿½o do MONITORFAIXA tambï¿½m." + CRLF
 				EndIf
 			Else
 				cDiag += "Falha ao chamar MONITORFAIXA: " + IIf(Empty(GetWscError(3)), GetWscError(1), GetWscError(3)) + CRLF
@@ -331,22 +331,22 @@ Static Function fDiagSped(cIdEnt, cSerieRaw, cNumNotaRaw)
 			oXmlNfe := XmlParser(cRetorno, "_", @cAviso, @cErro)
 			cDiag += "Parse do XML da NFe -> Aviso=[" + AllTrim(cAviso) + "] Erro=[" + AllTrim(cErro) + "]" + CRLF
 
-			// Parse do XML do DPEC (normalmente vazio para nota sem contingência). Na rotina
+			// Parse do XML do DPEC (normalmente vazio para nota sem contingï¿½ncia). Na rotina
 			// nativa, o Aviso/Erro deste SEGUNDO parse SOBRESCREVE o do parse acima antes
 			// de decidir se desenha o DANFE (If Empty(cAviso) .And. Empty(cErro)).
 			oXmlDpec := XmlParser(cRetDPEC, "_", @cAviso, @cErro)
 			cDiag += "Parse do XML do DPEC -> Aviso=[" + AllTrim(cAviso) + "] Erro=[" + AllTrim(cErro) + "]" + CRLF
-			cDiag += "=> Esse último Aviso/Erro (do DPEC) é o que decide se o DANFE é desenhado." + CRLF
+			cDiag += "=> Esse ï¿½ltimo Aviso/Erro (do DPEC) ï¿½ o que decide se o DANFE ï¿½ desenhado." + CRLF
 
 		Else
-			cDiag += "SPED não retornou registro para essa chave/entidade (RETORNANOTASNX)." + CRLF
+			cDiag += "SPED nï¿½o retornou registro para essa chave/entidade (RETORNANOTASNX)." + CRLF
 		EndIf
 
 		FreeObj(oWS)
 		oWS := Nil
 
 	Recover
-		cDiag += "O diagnóstico não pôde ser executado por completo (erro durante a consulta)." + CRLF
+		cDiag += "O diagnï¿½stico nï¿½o pï¿½de ser executado por completo (erro durante a consulta)." + CRLF
 
 	End Sequence
 

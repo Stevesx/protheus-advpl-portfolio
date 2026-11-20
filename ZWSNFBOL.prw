@@ -37,7 +37,7 @@ Retorno (sucesso, HTTP 200):
 Retorno (falha): SetRestFault com 400 (parâmetro inválido), 404 (nota não
 localizada) ou 500 (falha na geração/leitura do PDF).
 
-@author Equipe de Desenvolvimento
+@author Gabriel Esteves
 @since 18/08/2026
 @version 2.0
 /*/
