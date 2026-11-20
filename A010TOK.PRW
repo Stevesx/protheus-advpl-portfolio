@@ -2,9 +2,9 @@
 #Include "Protheus.ch"
 #include "tbiconn.ch"
 
-#DEFINE	CMAILTO  	"comercial.gv@chuasa.com,patricia.faria@chuasa.com,notafiscal@chuasa.com,fiscal@chuasa.com,apoio.vendas.gv@chuasa.com,ayrton.rodrigues@chuasa.com,guilherme.viana@chuasa.com,supervisao.ci@chuasa.com"
-#DEFINE CEMAILCC	"gestao.fiscal@chuasa.com"
-#DEFINE EMAILBCC	"ti@chuasa.com,gestao.ti@chuasa.com"
+#DEFINE	CMAILTO  	""
+#DEFINE CEMAILCC	""
+#DEFINE EMAILBCC	""
 
 /*
 +----------------------------------------------------------------------------+
@@ -18,32 +18,19 @@
 +------------------+---------------------------------------------------------+
 |Nome da Fun��o    | A010TOK                                     		     |
 +------------------+---------------------------------------------------------+
-|Descricao         | Valida��o para inclus�o ou altera��o do Produto		 |
-|				   | LOCALIZA��O : Function A010TudoOK - Fun��o de Valida��o |
-|				   | para inclus�o ou altera��o do Produto.					 |
-|				   | EM QUE PONTO: No in�cio das valida��es ap�s a confir-   |
-|				   | ma��o da inclus�o ou altera��o, antes da grava��o do    |
-|				   | Produto; deve ser utilizado para valida��es adicionais  |
-|				   | para a INCLUS�O ou ALTERA��O do Produto.			     |
 +------------------+---------------------------------------------------------+
 |Parametros        | INCLUI/ALTERA/			                                 |
 +------------------+---------------------------------------------------------+
 |Retorno           | Nenhum                                                  |
 +------------------+---------------------------------------------------------+
-|Autor             | Max Rocha   											 |
+|Autor             |    											 |
 +------------------+---------------------------------------------------------+
 |Contato           |                                                         |
 +------------------+---------------------------------------------------------+
-|Data de Criacao   | 30/10/2018		                                         |
+|Data de Criacao   |                                         |
 +------------------+---------------------------------------------------------+
 |   ATUALIZACOES                                                             |
 +-------------------------------------------+-----------+-----------+--------+
-|   Descricao detalhada da atualizacao      |Nome do    | Analista  |Data da |
-|                                           |Solicitante| Respons.  |Atualiz.|
-+-------------------------------------------+-----------+-----------+--------+
-| Cria��o do cabe�alho do fonte             |           |Rafael Galo|24/01/19|
-+-------------------------------------------+-----------+-----------+--------+
-
 +-------------------------------------------+-----------+-----------+--------+
 | Justificativa Desativao/Bloqueio -        |           |Gabriel	|31/08/2026| 
 |                                           |           |           |

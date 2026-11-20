@@ -3,39 +3,13 @@
 #INCLUDE "topconn.ch"
 
 #DEFINE CLOGPATH 	"\logs\"
-#DEFINE EMAILTO		"gestao.ti@chuasa.com,ti@chuasa.com,gestao.marketing@chuasa.com"
+#DEFINE EMAILTO		""
 #DEFINE CTIPOMSG 	"Pesquisa Satisfa��o - Clientes"
 #DEFINE CROTINA  	"MJOB011"
 #DEFINE CDESCRICAO = "JOB para envio de Pesquisa de Satisfacao para clientes via Whatsapp"
 #DEFINE NMESESCPR 6
 #DEFINE CASSUNTO  "Pesquisa NPS 2026"
-/*
-+----------------------------------------------------------------------------+
-|                        FICHA TECNICA DO PROGRAMA                           |
-+----------------------------------------------------------------------------+
-|   DADOS DO PROGRAMA                                                        |
-+------------------+---------------------------------------------------------+
-|Tipo              | JOB                                                     |
-+------------------+---------------------------------------------------------+
-|Nome da Fun��o    | WFPESQUI  - MJOB011                      		 		 |
-+------------------+---------------------------------------------------------+
-|Descricao         | 														 |
-+------------------+---------------------------------------------------------+
-|Parametros        |                                                         |
-+------------------+---------------------------------------------------------+
-|Retorno           | Nenhum                                                  |
-+------------------+---------------------------------------------------------+
-|Autor             | Rafael Bueno Galo - rbgalo@gmail.com  					 |
-+------------------+---------------------------------------------------------+
-|Contato           |                                                         |
-+------------------+---------------------------------------------------------+
-|Data de Criacao   | 27/05/2019		                                         |
-+------------------+---------------------------------------------------------+
-|   ATUALIZACOES                                                             |
-+-------------------------------------------+-----------+-----------+--------+
-|   Descricao detalhada da atualizacao      |Nome do    | Analista  |Data da |
-|                                           |Solicitante| Respons.  |Atualiz.|
-+-------------------------------------------+-----------+-----------+--------+
+
 
 
 User Function WFPESFRMNPS()
